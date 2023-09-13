@@ -1,16 +1,24 @@
 package io.kurosz.employee
 
+import arrow.core.Either
 import io.kurosz.driven.EmployeeEntity
 import io.kurosz.driver.HireUserRequest
-import java.util.UUID
+import java.util.*
 
 class Employee private constructor(private val firstname: String, private val lastname: String, private val age: Int) {
 
     internal lateinit var id: UUID
+
     companion object {
-        fun hire(hireUserRequest: HireUserRequest): Employee {
+        fun hire(hireUserRequest: HireUserRequest): Either<EmployeeCannotBeHired, Employee> {
             with(hireUserRequest) {
-                return Employee(firstname, lastname, age)
+                if (age > 60) {
+                    return Either.Left(EmployeeCannotBeHired("Cannot hire employee older than 60 years"))
+                } else if (age < 18) {
+                    return Either.Left(EmployeeCannotBeHired("Cannot hire employee younger than 18 years"))
+
+                }
+                return Either.Right(Employee(firstname, lastname, age))
             }
 
         }
@@ -21,3 +29,5 @@ class Employee private constructor(private val firstname: String, private val la
     }
 
 }
+
+data class EmployeeCannotBeHired(val reason: String)

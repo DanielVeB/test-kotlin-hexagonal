@@ -14,18 +14,23 @@ open class EmployeeService(private val employeeRepository: EmployeeRepository) :
     override fun hire(request: HireUserRequest): HireResponse {
         logger.info("Try to hire new employee")
         val employee = Employee.hire(request)
-        val id = employeeRepository.save(employee.toEntity())
-        return HireResponse.Hired(id.toString())
 
+
+        return employee.fold({ HireResponse.CannotHireError(it.reason) },
+            {
+                val id = employeeRepository.save(it.toEntity())
+                HireResponse.Hired(id.toString())
+            })
     }
-
     override fun getById(id: String): EmployeeDto? {
+        logger.info("Get employee with id $id")
         return employeeRepository.getById(UUID.fromString(id))?.let {
             EmployeeDto(it.id.toString(), it.firstname, it.lastName, it.age)
         }
     }
 
     override fun getAll(): List<EmployeeDto> {
+        logger.info("Get all employees")
         return employeeRepository.getAll().map { EmployeeDto(it.id.toString(), it.firstname, it.lastName, it.age) }
     }
 
