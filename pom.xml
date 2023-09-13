@@ -14,8 +14,9 @@
     <modules>
         <module>domain</module>
         <module>ports</module>
-        <module>adapters</module>
+        <module>drivers</module>
         <module>app</module>
+        <module>driven</module>
     </modules>
 
     <groupId>io.kurosz</groupId>

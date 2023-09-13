@@ -25,7 +25,12 @@
         </dependency>
         <dependency>
             <groupId>io.kurosz</groupId>
-            <artifactId>adapters</artifactId>
+            <artifactId>drivers</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.kurosz</groupId>
+            <artifactId>driven</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

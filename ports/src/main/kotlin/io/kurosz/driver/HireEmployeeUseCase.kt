@@ -14,7 +14,7 @@ data class HireUserRequest(
 
 sealed class HireResponse {
 
-    data object Success : HireResponse()
+    data class Hired(val id: String) : HireResponse()
 
     data class CannotHireError(val reason: String) : HireResponse()
 }
