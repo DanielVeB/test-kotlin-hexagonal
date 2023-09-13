@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/users")
-class UserController(private val hireEmployeeUseCase: HireEmployeeUseCase, private val getHiredUsers: GetHiredUsers) {
+@RequestMapping("/employees")
+class EmployeeController(private val hireEmployeeUseCase: HireEmployeeUseCase, private val getHiredUsers: GetHiredUsers) {
 
     companion object {
-        private val logger = getLogger(UserController::class.java)
+        private val logger = getLogger(EmployeeController::class.java)
     }
 
     @PostMapping

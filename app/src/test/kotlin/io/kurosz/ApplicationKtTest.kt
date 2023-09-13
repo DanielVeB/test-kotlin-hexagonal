@@ -3,7 +3,7 @@ package io.kurosz
 import io.kurosz.driver.EmployeeDto
 import io.kurosz.driver.GetHiredUsers
 import io.kurosz.driver.HireEmployeeUseCase
-import io.kurosz.employee.UserController
+import io.kurosz.employee.EmployeeController
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(controllers = [UserController::class])
+@WebMvcTest(controllers = [EmployeeController::class])
 class ApplicationKtTest(@Autowired val mockMvc: MockMvc) {
 
 
@@ -39,7 +39,7 @@ class ApplicationKtTest(@Autowired val mockMvc: MockMvc) {
     fun shouldReturnListOfEmployees() {
         every { getHiredUsers.getAll() } returns listOf(EmployeeDto("1", "", "", 22))
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees"))
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("1"));
@@ -49,7 +49,7 @@ class ApplicationKtTest(@Autowired val mockMvc: MockMvc) {
     fun shouldReturnEmptyListOfEmployees() {
         every { getHiredUsers.getAll() } returns listOf()
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees"))
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.content().string("[]"))

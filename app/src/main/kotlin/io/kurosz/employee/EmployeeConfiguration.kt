@@ -1,7 +1,6 @@
 package io.kurosz.employee
 
 import io.kurosz.driven.EmployeeRepository
-import io.kurosz.employee.EmployeeService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
